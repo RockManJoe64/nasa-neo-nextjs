@@ -2,6 +2,41 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+export async function getServerSideProps() {
+  const today = Date.now();
+  const isodate = today.toISOString().substring(0,10);
+  const apiKey = 'szzVynFpZcg8X6UZ37YHHr5jOCXwII4RDGpBO8XL';
+  
+  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${isodate}&end_date=${isodate}&api_key=${apiKey}`;
+  
+  // Fetch data from external API
+  const res = await fetch(url);
+  const data = await res.json();
+
+  // Transform data
+  const payload = data.near_earth_objects;
+  const rows = [];
+  Object.entries(payload).forEach(entry => {
+    const [key, value] = entry;
+    value.forEach(neo => {
+      const row = {
+        name: neo.name,
+        jplUrl: neo.nasa_jpl_url,
+        isHazardous: neo.is_potentially_hazardous_asteroid,
+        approachDate: neo.close_approach_data.close_approach_date_full,
+        missDistance: neo.close_approach_data.miss_distance.kilometers,
+        relativeVelocity: neo.close_approach_data.relative_velocity.kilometers_per_hour,
+        diameterMin: neo.estimated_diameter.meters.estimated_diameter_min,
+        diameterMax: neo.estimated_diameter.meters.estimated_diameter_max
+      };
+      rows.push(row);
+    });
+  });
+
+  // Pass data to the page via props
+  return { props: { rows } }
+}
+
 export default function Home() {
   return (
     <div className={styles.container}>
