@@ -7,7 +7,7 @@ import _ from 'lodash'
 export async function getServerSideProps(context) {
   const today = new Date();
   const isodate = today.toISOString().substring(0,10);
-  const apiKey = 'szzVynFpZcg8X6UZ37YHHr5jOCXwII4RDGpBO8XL';
+  const apiKey = 'X'; // TODO fill in with the right api key
   
   const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${isodate}&end_date=${isodate}&api_key=${apiKey}`;
   
