@@ -15,7 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15rem;
+  margin-top: 20rem;
 }
 
 .footer {
@@ -120,6 +120,7 @@
 
 .tableCell {
   border: 1px solid black;
+  padding: 0.25em;
 }
 
 @media (max-width: 600px) {
