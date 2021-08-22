@@ -1,4 +1,23 @@
+
+<p align="center">
+  <a href="https://nextjs.org">
+    <img src="https://assets.vercel.com/image/upload/v1607554385/repositories/next-js/next-logo.png" height="64">
+  </a>
+  <a href="https://api.nasa.gov/">
+    <img src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" height="64">
+  </a>
+  <br/>
+  <a href="https://cloud.google.com/">
+    <img src="https://www.gstatic.com/devrel-devsite/prod/vf0396724755d04dbab75050e6812ced8fb2ab11d424163deba5826536b4b1964/cloud/images/social-icon-google-cloud-1200-630.png" height="64">
+  </a>
+  <h1 align="center">NASA Near-Earth Objects Example</h1>
+</p>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+It uses server-side rendering (SSR) to call the public NASA NeoWs API to get a list of near Earth objects.
+
+It is deployed to Google Cloud's Compute offerings. In this case, App Engine and Cloud Run.
 
 ## Getting Started
 
@@ -32,3 +51,39 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Deploying to Google Cloud
+
+🚧Work In Progress🚧
+
+### Setup
+
+Run the following commands in Cloud Console to create a project.
+
+```
+gcloud projects create nasa-neo-example --name="NasaNeoExample" --labels=type=personal
+
+gcloud config set project nasa-neo-example
+```
+
+Before continuing, ensure you have a billing account linked to your new project.
+
+Enable the Compute API in your project. 
+
+```
+gcloud services enable compute.googleapis.com
+```
+
+### Deploy to App Engine
+
+#### Standard Environment
+
+Create an app engine
+
+```
+gcloud app create --region=us-central1
+```
+
+#### Flexible Environment
+
+### Deploy to Cloud Run
