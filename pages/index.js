@@ -1,15 +1,16 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import nasaLogo from '../public/nasa_logo.png'
+import { DateTime } from 'luxon'
 import _ from 'lodash'
 
 export async function getServerSideProps(context) {
-  const today = new Date();
-  const isodate = today.toISOString().substring(0,10);
+  const today = DateTime.now();
+  const startDate = today.toFormat('yyyy-LL-dd');
+  const endDate = today.plus({ days: 1 }).toFormat('yyyy-LL-dd');
   const apiKey = 'X'; // TODO fill in with the right api key
   
-  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${isodate}&end_date=${isodate}&api_key=${apiKey}`;
+  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
   
   // Fetch data from external API
   const res = await fetch(url);
@@ -23,8 +24,7 @@ export default function Home({ data }) {
   // Transform data
   const payload = data.near_earth_objects;
   const rows = [];
-  Object.entries(payload).forEach(entry => {
-    const [key, value] = entry;
+  _.values(payload).forEach(value => {
     value.forEach(neo => {
       const row = {
         name: _.get(neo, 'name', '-'),
