@@ -54,15 +54,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Deploying to Google Cloud
 
-🚧Work In Progress🚧
-
 ### Setup
 
 Run the following commands in Cloud Console to create a project.
 
 ```
 gcloud projects create nasa-neo-example --name="NasaNeoExample" --labels=type=personal
-
 gcloud config set project nasa-neo-example
 ```
 
@@ -76,14 +73,41 @@ gcloud services enable compute.googleapis.com
 
 ### Deploy to App Engine
 
-#### Standard Environment
+⚠ Be sure to substitute in your NASA API key in `index.js` before deploying!
 
-Create an app engine
+⚠ While testing deployments, I noticed that App Engine uses `yarn` to start the service instance. If you're using `npm`, simply 
+1. install `yarn`
+2. delete the `package-lock.json` file
+3. run `yarn build`
+This should allow you to properly deploy to App Engine.
+
+Create an App Engine service.
 
 ```
-gcloud app create --region=us-central1
+gcloud app create --region=us-central
 ```
 
-#### Flexible Environment
+By default, `app.yml` is configured to use the __Standard Environment__ without warmup. The contents of `app.standard.yml` are the same.
+
+To deploy to the __Standard Environment__ with warmup configured, replace the `app.yml` file with `app.standard-warmup.yml`.
+
+```
+cp app.standard-warmup.yml app.yml
+```
+
+To deploy to the __Flexible Environment__, replace the `app.yml` file with `app.flexible.yml`.
+
+```
+cp app.flexible.yml app.yml
+```
+
+Then deploy the application to App Engine.
+
+```
+yarn build
+gcloud app deploy
+```
 
 ### Deploy to Cloud Run
+
+🚧Work In Progress🚧
