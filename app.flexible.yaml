@@ -1,6 +1,6 @@
 env: flex
-runtime: nodejs14
-service: alt
+runtime: nodejs
+service: flexenv
 automatic_scaling:
   cool_down_period_sec: 180
   cpu_utilization:
