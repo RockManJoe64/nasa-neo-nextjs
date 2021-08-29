@@ -1,12 +1,29 @@
-import styles from '../../styles/Home.module.css'
-import _ from 'lodash'
 import React from 'react'
 import { useTable } from 'react-table'
+
+import { makeStyles } from '@material-ui/core/styles';
+
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import _ from 'lodash'
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 export default function NearEarthObjectsTable({ neodata }) {
   // Transform data
   const tableData = parseData(neodata)
 
+  // Config table
   const columns = columnConfig()
 
   const {
@@ -17,42 +34,40 @@ export default function NearEarthObjectsTable({ neodata }) {
     prepareRow,
   } = useTable({ columns, data: tableData })
 
-  return (
-    <table className={styles.table} {...getTableProps()}>
-      <thead>
-        {
-          headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {
-                headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()}>
-                    { column.render('Header') }
-                  </th>
-                ))
-              }
-            </tr>
-          ))
-        }
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {
-        rows.map(row => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {
-              row.cells.map(cell => {
-                return (
-                  <td {...cell.getCellProps()}>
-                    { cell.render('Cell') }
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+  const classes = useStyles();
+
+  return (  
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table" {...getTableProps()}>
+        <TableHead>
+          {headerGroups.map(headerGroup => (
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <TableCell {...column.getHeaderProps()}>
+                  {column.render('Header')}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableHead>
+        <TableBody>
+          {rows.map((row, i) => {
+            prepareRow(row)
+            return (
+              <TableRow {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return (
+                    <TableCell {...cell.getCellProps()}>
+                      {cell.render('Cell')}
+                    </TableCell>
+                  )
+                })}
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 
@@ -75,7 +90,6 @@ function parseData(data) {
     })
   })
   const sortedRows = _.sortBy(rows, ['approachDate'])
-  console.log(`sortedRows.length=${sortedRows.length}`)
   const memoizedRows = React.useMemo(() => sortedRows)
   return memoizedRows
 }
