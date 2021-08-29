@@ -3,6 +3,7 @@ import { useTable } from 'react-table'
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -96,7 +97,7 @@ function parseData(data) {
 
 function nameColumnAccessor(row) {
   return (
-    <a href={row.jplUrl} target="_blank">{row.name}</a>
+    <Link href={row.jplUrl} target="_blank" rel="noopener">{row.name}</Link>
   )
 }
 
