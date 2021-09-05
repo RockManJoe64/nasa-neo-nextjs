@@ -15,8 +15,11 @@ import TableRow from '@material-ui/core/TableRow';
 import _ from 'lodash'
 
 const useStyles = makeStyles({
+  container: {
+    maxWidth: '80%'
+  },
   table: {
-    minWidth: 650,
+    minWidth: '75%'
   },
 });
 
@@ -29,7 +32,6 @@ export default function NearEarthObjectsTable({ neodata }) {
 
   const {
     getTableProps,
-    getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
@@ -38,7 +40,7 @@ export default function NearEarthObjectsTable({ neodata }) {
   const classes = useStyles();
 
   return (  
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.container} component={Paper}>
       <Table className={classes.table} aria-label="simple table" {...getTableProps()}>
         <TableHead>
           {headerGroups.map(headerGroup => (
