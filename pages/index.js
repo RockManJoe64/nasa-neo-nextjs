@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import nasaLogo from '../public/nasa_logo.png'
-import NearEarthObjectsTable from '../components/table/near-earth-objects.table'
+import NearEarthObjectsTable from '../components/near-earth-objects/near-earth-objects.table'
 import { DateTime } from 'luxon'
 import _ from 'lodash'
 
