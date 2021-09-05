@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import { useTable } from 'react-table';
 import parseNeoData from './near-earth-objects';
+import { toIsoDate } from '../data-format/date-formats';
+import { toDiameter, toDistance, toVelocity } from '../data-format/number-formats';
 
 const useStyles = makeStyles({
   container: {
@@ -91,23 +93,43 @@ function columnConfig() {
     },
     {
       Header: 'Approach Date',
-      accessor: 'approachDate'
+      accessor: 'approachDate',
+      Cell: (props) => {
+        const formatted = toIsoDate(props.value)
+        return <span>{formatted}</span>
+      }
     },
     {
       Header: 'Miss Distance (km)',
-      accessor: 'missDistance'
+      accessor: 'missDistance',
+      Cell: (props) => {
+        const formatted = toDistance(props.value)
+        return <span>{formatted}</span>
+      }
     },
     {
       Header: 'Rel. Velocity (km/h)',
-      accessor: 'relativeVelocity'
+      accessor: 'relativeVelocity',
+      Cell: (props) => {
+        const formatted = toVelocity(props.value)
+        return <span>{formatted}</span>
+      }
     },
     {
       Header: 'Min Dia. (km)',
-      accessor: 'diameterMin'
+      accessor: 'diameterMin',
+      Cell: (props) => {
+        const formatted = toDiameter(props.value)
+        return <span>{formatted}</span>
+      }
     },
     {
       Header: 'Max Dia. (km)',
-      accessor: 'diameterMax'
+      accessor: 'diameterMax',
+      Cell: (props) => {
+        const formatted = toDiameter(props.value)
+        return <span>{formatted}</span>
+      }
     },
   ]
 }

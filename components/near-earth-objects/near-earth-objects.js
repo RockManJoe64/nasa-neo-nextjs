@@ -19,5 +19,6 @@ export default function parseNeoData(data) {
     })
   })
   const sortedRows = _.sortBy(rows, ['approachDate'])
+  
   return sortedRows
 }
