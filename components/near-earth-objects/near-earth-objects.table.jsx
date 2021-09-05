@@ -89,7 +89,11 @@ function columnConfig() {
     },
     {
       Header: 'Hazardous?',
-      accessor: 'isHazardous'
+      accessor: 'isHazardous',
+      Cell: (props) => {
+        const formatted = props.value ? 'Y' : 'N'
+        return <span>{formatted}</span>
+      }
     },
     {
       Header: 'Approach Date',
