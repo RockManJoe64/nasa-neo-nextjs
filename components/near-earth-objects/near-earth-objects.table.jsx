@@ -19,13 +19,23 @@ const useStyles = makeStyles({
   },
   table: {
     minWidth: '75%'
-  },
+  }
 });
+
+const rightAlignedColumns = [
+  'missDistance',
+  'relativeVelocity',
+  'diameterMin',
+  'diameterMax'
+]
 
 export default function NearEarthObjectsTable({ neodata }) {
   // Transform data
   const parsedData = parseNeoData(neodata)
   const tableData = React.useMemo(() => parsedData, [parsedData])
+
+  // Setup styles
+  const classes = useStyles();
 
   // Config table
   const columns = React.useMemo(() => columnConfig(), [])
@@ -37,19 +47,21 @@ export default function NearEarthObjectsTable({ neodata }) {
     prepareRow,
   } = useTable({ columns, data: tableData })
 
-  const classes = useStyles();
-
   return (  
     <TableContainer className={classes.container} component={Paper}>
       <Table className={classes.table} aria-label="simple table" {...getTableProps()}>
         <TableHead>
           {headerGroups.map(headerGroup => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <TableCell {...column.getHeaderProps()}>
-                  {column.render('Header')}
-                </TableCell>
-              ))}
+              {headerGroup.headers.map(column => {
+                const rightAligned = rightAlignedColumns.includes(column.id)
+                return (
+                  <TableCell {...column.getHeaderProps()}
+                      align={rightAligned ? 'right' : 'left'}>
+                    {column.render('Header')}
+                  </TableCell>
+                )
+              })}
             </TableRow>
           ))}
         </TableHead>
@@ -59,8 +71,10 @@ export default function NearEarthObjectsTable({ neodata }) {
             return (
               <TableRow {...row.getRowProps()}>
                 {row.cells.map(cell => {
+                  const rightAligned = rightAlignedColumns.includes(cell.column.id)
                   return (
-                    <TableCell {...cell.getCellProps()}>
+                    <TableCell {...cell.getCellProps()} 
+                        align={rightAligned ? 'right' : 'left'}>
                       {cell.render('Cell')}
                     </TableCell>
                   )
