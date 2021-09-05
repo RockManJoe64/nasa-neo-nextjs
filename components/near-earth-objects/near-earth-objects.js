@@ -1,4 +1,21 @@
 import _ from 'lodash'
+import { config } from './config'
+
+export async function fetchFeedToday() {
+  const url = `https://api.nasa.gov/neo/rest/v1/feed/today?api_key=${config.apiKey}`
+  const res = await fetch(url)
+  const data = await res.json()
+
+  return data
+}
+
+export async function fetchFeedFor(startDate, endDate) {
+  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${config.apiKey}`
+  const res = await fetch(url)
+  const data = await res.json()
+
+  return data
+}
 
 export default function parseNeoData(data) {
   const payload = data.near_earth_objects
@@ -19,6 +36,6 @@ export default function parseNeoData(data) {
     })
   })
   const sortedRows = _.sortBy(rows, ['approachDate'])
-  
+
   return sortedRows
 }

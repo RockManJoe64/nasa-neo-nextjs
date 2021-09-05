@@ -9,9 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import { useTable } from 'react-table';
-import parseNeoData from './near-earth-objects';
 import { toIsoDate } from '../data-format/date-formats';
 import { toDiameter, toDistance, toVelocity } from '../data-format/number-formats';
+import parseNeoData from './near-earth-objects';
 
 const useStyles = makeStyles({
   container: {
