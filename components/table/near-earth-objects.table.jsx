@@ -23,10 +23,10 @@ const useStyles = makeStyles({
 export default function NearEarthObjectsTable({ neodata }) {
   // Transform data
   const parsedData = parseNeoData(neodata)
-  const tableData = React.useMemo(() => parsedData)
+  const tableData = React.useMemo(() => parsedData, [parsedData])
 
   // Config table
-  const columns = columnConfig()
+  const columns = React.useMemo(() => columnConfig(), [])
 
   const {
     getTableProps,
@@ -79,7 +79,7 @@ function nameColumnAccessor(row) {
 }
 
 function columnConfig() {
-  return React.useMemo(() => [
+  return [
     {
       Header: 'Name',
       id: 'name',
@@ -109,5 +109,5 @@ function columnConfig() {
       Header: 'Max Dia. (km)',
       accessor: 'diameterMax'
     },
-  ])
+  ]
 }
