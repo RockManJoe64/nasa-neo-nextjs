@@ -59,8 +59,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 Run the following commands in Cloud Console to create a project.
 
 ```
-gcloud projects create nasa-neo-example --name="NasaNeoExample" --labels=type=personal
-gcloud config set project nasa-neo-example
+gcloud projects create <project-name>
+gcloud config set project <project-name>
 ```
 
 Before continuing, ensure you have a billing account linked to your new project.
@@ -110,4 +110,39 @@ gcloud app deploy
 
 ### Deploy to Cloud Run
 
-🚧Work In Progress🚧
+Before deploying, first enable the Google Cloud APIs needed for Docker auth
+
+```
+gcloud services enable containerregistry.googleapis.com
+gcloud services enable run.googleapis.com
+gcloud --quiet auth configure-docker
+```
+
+Also, install the cloud run component
+
+```
+gcloud components install beta --quiet
+```
+
+First, build and tag the image
+
+```
+docker build . --tag "gcr.io/<project-name>/nasa-neo-nextjs:latest"
+```
+
+Then, push the image to Google Conatiner Repository (GCR)
+
+```
+docker push gcr.io/<project-name>/nasa-neo-nextjs:latest
+```
+
+Finally, deploy to Cloud Run
+
+```
+gcloud components install beta --quiet
+gcloud beta run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
+  --project <project-name> \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
