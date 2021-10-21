@@ -118,12 +118,6 @@ gcloud services enable run.googleapis.com
 gcloud --quiet auth configure-docker
 ```
 
-Also, install the cloud run component
-
-```
-gcloud components install beta --quiet
-```
-
 First, build and tag the image
 
 ```
@@ -139,7 +133,7 @@ docker push gcr.io/<project-name>/nasa-neo-nextjs:latest
 Finally, deploy to Cloud Run
 
 ```
-gcloud beta run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
+gcloud run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
   --project <project-name> \
   --platform managed \
   --region us-central1 \
