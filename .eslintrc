@@ -1,6 +1,7 @@
 {
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
-    "react/jsx-key": "warn"
+    "react/jsx-key": "warn",
+    "react/display-name": "warn"
   }
 }
