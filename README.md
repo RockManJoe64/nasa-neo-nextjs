@@ -139,7 +139,6 @@ docker push gcr.io/<project-name>/nasa-neo-nextjs:latest
 Finally, deploy to Cloud Run
 
 ```
-gcloud components install beta --quiet
 gcloud beta run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
   --project <project-name> \
   --platform managed \
