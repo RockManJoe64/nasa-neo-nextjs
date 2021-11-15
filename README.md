@@ -112,36 +112,30 @@ gcloud app deploy
 ### Deploy to Cloud Run
 
 Before deploying, first enable the Google Cloud APIs needed for Docker auth
-
 ```
 gcloud services enable containerregistry.googleapis.com
 gcloud services enable run.googleapis.com
 gcloud --quiet auth configure-docker
 ```
 
-Also, install the cloud run component
-
+Also, copy the related config files from `.gcloud/cloudrun` to the project root.
 ```
-gcloud components install beta --quiet
+cp .gcloud/cloudrun/* .
 ```
 
 First, build and tag the image
-
 ```
 docker build . --tag "gcr.io/<project-name>/nasa-neo-nextjs:latest"
 ```
 
 Then, push the image to Google Conatiner Repository (GCR)
-
 ```
 docker push gcr.io/<project-name>/nasa-neo-nextjs:latest
 ```
 
 Finally, deploy to Cloud Run
-
 ```
-gcloud components install beta --quiet
-gcloud beta run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
+gcloud run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
   --project <project-name> \
   --platform managed \
   --region us-central1 \
