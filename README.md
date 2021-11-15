@@ -82,27 +82,28 @@ gcloud services enable compute.googleapis.com
 This should allow you to properly deploy to App Engine.
 
 Create an App Engine service.
-
 ```
 gcloud app create --region=us-central
+```
+
+Copy the appengine config files from `.gcloud/appengine` to the project root.
+```
+cp .gcloud/appengine/*.yaml .
 ```
 
 By default, `app.yml` is configured to use the __Standard Environment__ without warmup. The contents of `app.standard.yml` are the same.
 
 To deploy to the __Standard Environment__ with warmup configured, replace the `app.yml` file with `app.standard-warmup.yml`.
-
 ```
 cp app.standard-warmup.yml app.yml
 ```
 
 To deploy to the __Flexible Environment__, replace the `app.yml` file with `app.flexible.yml`.
-
 ```
 cp app.flexible.yml app.yml
 ```
 
 Then deploy the application to App Engine.
-
 ```
 yarn build
 gcloud app deploy
