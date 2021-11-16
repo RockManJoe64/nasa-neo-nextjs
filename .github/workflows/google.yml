@@ -36,9 +36,9 @@ jobs:
       uses: actions/checkout@v2
 
     # Build NextJS
-    # - name: Build NextJS App
-    # - run: |-
-    #     npm install; npm run build
+    - name: Build NextJS App
+    - run: |-
+        npm install; npm run build
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
