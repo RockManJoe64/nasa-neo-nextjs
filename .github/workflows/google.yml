@@ -37,7 +37,7 @@ jobs:
 
     # Build NextJS
     - name: Build NextJS App
-    - run: |-
+      run: |-
         npm install; npm run build
 
     # Setup gcloud CLI
