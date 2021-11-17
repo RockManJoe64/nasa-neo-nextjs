@@ -9,6 +9,7 @@ on:
       #- develop
 
 env:
+  CURR_BRANCH_NAME: ${GITHUB_REF##*/}
   CHART_DIR: ./.chart
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
       id: list-changed
       run: |
         cd ${{ env.CHART_DIR }}
-        changed=$(ct list-changed)
+        changed=$(ct list-changed --target-branch ${{ env.CURR_BRANCH_NAME }})
         if [[ -n "$changed" ]]; then
           echo "::set-output name=changed::true"
         fi
@@ -46,7 +47,7 @@ jobs:
     - name: Run chart-testing (lint)
       run: |
         cd ${{ env.CHART_DIR }}
-        ct lint
+        ct lint --target-branch ${{ env.CURR_BRANCH_NAME }}
 
     - name: Create kind cluster
       uses: helm/kind-action@v1.2.0
@@ -55,4 +56,4 @@ jobs:
     - name: Run chart-testing (install)
       run: |
         cd ${{ env.CHART_DIR }}
-        ct install
+        ct install --target-branch ${{ env.CURR_BRANCH_NAME }}
