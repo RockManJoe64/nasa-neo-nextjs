@@ -36,6 +36,11 @@ jobs:
       uses: actions/checkout@v2
 
     # Build NextJS
+    - name: npm install
+      run: |-
+        npm install
+
+    # Build NextJS
     # - name: Build NextJS App
     #   run: |-
     #     npm install; npm run build
