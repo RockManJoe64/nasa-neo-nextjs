@@ -1,0 +1,58 @@
+# This workflow will test the helm charts when there is a push to the develop branch.
+
+name: Manage Helm Chart
+
+on:
+  push:
+    branches:
+      - "gke-deployment"
+      #- develop
+
+env:
+  CHART_DIR: ./.chart
+
+jobs:
+  helm-chart-testing:
+    name: Test Helm Charts
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: v3.4.0
+
+    # TODO is this needed?
+    # - uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.7
+
+    - name: Set up chart-testing
+      uses: helm/chart-testing-action@v2.1.0
+
+    - name: Run chart-testing (list-changed)
+      id: list-changed
+      run: |
+        cd ${{ env.CHART_DIR }}
+        changed=$(ct list-changed)
+        if [[ -n "$changed" ]]; then
+          echo "::set-output name=changed::true"
+        fi
+
+    - name: Run chart-testing (lint)
+      run: |
+        cd ${{ env.CHART_DIR }}
+        ct lint
+
+    - name: Create kind cluster
+      uses: helm/kind-action@v1.2.0
+      if: steps.list-changed.outputs.changed == 'true'
+
+    - name: Run chart-testing (install)
+      run: |
+        cd ${{ env.CHART_DIR }}
+        ct install
