@@ -13,11 +13,18 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-It uses server-side rendering (SSR) to call the public NASA NeoWs API to get a list of near Earth objects.
+It uses server-side rendering (SSR) to call the public NASA NeoWs API to get a list of near Earth objects. More information on the API can be found [here](https://proulxp.github.io/CS290-How-To-Guide/neo.html).
 
-It is deployed to Google Cloud's Compute offerings. In this case, App Engine and Cloud Run.
+The app is configured to deploy to Google Cloud's App Engine and Cloud Run.
 
 ## Getting Started
+
+### Get Your NASA API Key
+
+- First, you'll need to get your own API key from NASA. You can do so [here](https://api.nasa.gov/index.html#apply-for-an-api-key).
+- Once you have your API key, you'll need to add it to your `.env.local` file as the `NASA_API_KEY` value.
+
+### Launch the Development Server
 
 First, run the development server:
 
