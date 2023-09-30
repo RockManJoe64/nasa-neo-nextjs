@@ -1,14 +1,12 @@
-
 <p align="center">
   <a href="https://nextjs.org">
     <img src="https://assets.vercel.com/image/upload/v1607554385/repositories/next-js/next-logo.png" height="64">
   </a>
   <a href="https://api.nasa.gov/">
-    <img src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" height="64">
+    <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo@2x.png" height="64">
   </a>
-  <br/>
   <a href="https://cloud.google.com/">
-    <img src="https://www.gstatic.com/devrel-devsite/prod/vf0396724755d04dbab75050e6812ced8fb2ab11d424163deba5826536b4b1964/cloud/images/social-icon-google-cloud-1200-630.png" height="64">
+    <img src="https://play-lh.googleusercontent.com/RyoQTmHnxsxPYabsETmWVXHtLorVh_yOO48hsdv2VmI-Uki4qt5c5vV1cicJODV56A4" height="64">
   </a>
   <h1 align="center">NASA Near-Earth Objects Example</h1>
 </p>
@@ -65,7 +63,7 @@ gcloud config set project <project-name>
 
 Before continuing, ensure you have a billing account linked to your new project.
 
-Enable the Compute API in your project. 
+Enable the Compute API in your project.
 
 ```
 gcloud services enable compute.googleapis.com
@@ -75,35 +73,41 @@ gcloud services enable compute.googleapis.com
 
 ⚠ Be sure to substitute in your NASA API key in `index.js` before deploying!
 
-⚠ While testing deployments, I noticed that App Engine uses `yarn` to start the service instance. If you're using `npm`, simply 
+⚠ While testing deployments, I noticed that App Engine uses `yarn` to start the service instance. If you're using `npm`, simply
+
 1. install `yarn`
 2. delete the `package-lock.json` file
 3. run `yarn build`
-This should allow you to properly deploy to App Engine.
+   This should allow you to properly deploy to App Engine.
 
 Create an App Engine service.
+
 ```
 gcloud app create --region=us-central
 ```
 
 Copy the appengine config files from `.gcloud/appengine` to the project root.
+
 ```
 cp .gcloud/appengine/*.yaml .
 ```
 
-By default, `app.yml` is configured to use the __Standard Environment__ without warmup. The contents of `app.standard.yml` are the same.
+By default, `app.yml` is configured to use the **Standard Environment** without warmup. The contents of `app.standard.yml` are the same.
 
-To deploy to the __Standard Environment__ with warmup configured, replace the `app.yml` file with `app.standard-warmup.yml`.
+To deploy to the **Standard Environment** with warmup configured, replace the `app.yml` file with `app.standard-warmup.yml`.
+
 ```
 cp app.standard-warmup.yml app.yml
 ```
 
-To deploy to the __Flexible Environment__, replace the `app.yml` file with `app.flexible.yml`.
+To deploy to the **Flexible Environment**, replace the `app.yml` file with `app.flexible.yml`.
+
 ```
 cp app.flexible.yml app.yml
 ```
 
 Then deploy the application to App Engine.
+
 ```
 yarn build
 gcloud app deploy
@@ -112,6 +116,7 @@ gcloud app deploy
 ### Deploy to Cloud Run
 
 Before deploying, first enable the Google Cloud APIs needed for Docker auth
+
 ```
 gcloud services enable containerregistry.googleapis.com
 gcloud services enable run.googleapis.com
@@ -119,21 +124,25 @@ gcloud --quiet auth configure-docker
 ```
 
 Also, copy the related config files from `.gcloud/cloudrun` to the project root.
+
 ```
 cp .gcloud/cloudrun/* .
 ```
 
 First, build and tag the image
+
 ```
 docker build . --tag "gcr.io/<project-name>/nasa-neo-nextjs:latest"
 ```
 
 Then, push the image to Google Conatiner Repository (GCR)
+
 ```
 docker push gcr.io/<project-name>/nasa-neo-nextjs:latest
 ```
 
 Finally, deploy to Cloud Run
+
 ```
 gcloud run deploy nasa-neo-nextjs --image gcr.io/<project-name>/nasa-neo-nextjs:latest \
   --project <project-name> \
