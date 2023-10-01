@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -41,11 +40,11 @@ export default function Home({ data }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Stack>
-          <Box display="flex" justifyContent="center" alignItems="center">
+          <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
             <Image src={nasaLogo} alt="Picture of NASA logo" width={200} height={200} />
           </Box>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Typography variant="h4">Near Earth Objects Today</Typography>
+          <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
+            <Typography variant="h5">Near Earth Objects Today</Typography>
           </Box>
           <DarkModeToggle />
           {matches ? (

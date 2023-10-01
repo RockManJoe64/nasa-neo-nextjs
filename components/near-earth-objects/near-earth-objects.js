@@ -23,6 +23,7 @@ export default function parseNeoData(data) {
   _.values(payload).forEach((value) => {
     value.forEach((neo) => {
       const row = {
+        id: _.get(neo, 'id', '-'),
         neoRefId: _.get(neo, 'neo_reference_id', '-'),
         name: _.get(neo, 'name', '-'),
         jplUrl: _.get(neo, 'nasa_jpl_url', '#'),

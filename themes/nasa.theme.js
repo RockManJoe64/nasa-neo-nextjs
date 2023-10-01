@@ -18,6 +18,9 @@ export const NasaLightTheme = {
       main: red,
     },
   },
+  typography: {
+    fontFamily: ['"VT323"', 'monospace'].join(','),
+  },
 }
 
 export const NasaDarkTheme = {
@@ -29,5 +32,8 @@ export const NasaDarkTheme = {
     secondary: {
       main: teal,
     },
+  },
+  typography: {
+    fontFamily: ['"VT323"', 'monospace'].join(','),
   },
 }
