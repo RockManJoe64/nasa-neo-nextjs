@@ -14,6 +14,7 @@ import NearEarthObjectsTable from '../components/near-earth-objects/near-earth-o
 import nasaLogo from '../public/nasa_logo_pixelated.png'
 import { NasaDarkTheme, NasaLightTheme, getSystemDarkMode } from '../themes/nasa.theme'
 import { getSentrySummary } from 'components/sentry/sentry-impact-objects'
+import _ from 'lodash'
 
 export async function getServerSideProps(context) {
   const neoData = await fetchFeedToday()
@@ -23,7 +24,7 @@ export async function getServerSideProps(context) {
   return { props: { neoData, sentryData } }
 }
 
-export default function Home({ data }) {
+export default function Home({ neoData, sentryData }) {
   // prettier-ignore
   const [mode, setMode] = React.useState(getSystemDarkMode())
   const colorMode = React.useMemo(
@@ -50,9 +51,9 @@ export default function Home({ data }) {
           </Box>
           <DarkModeToggle />
           {matches ? (
-            <NearEarthObjectsTable neodata={data.neoData}></NearEarthObjectsTable>
+            <NearEarthObjectsTable neodata={neoData}></NearEarthObjectsTable>
           ) : (
-            <NearEarthObjectsList neodata={data.neoData}></NearEarthObjectsList>
+            <NearEarthObjectsList neodata={neoData}></NearEarthObjectsList>
           )}
         </Stack>
       </ThemeProvider>
