@@ -13,12 +13,14 @@ import NearEarthObjectsList from '../components/near-earth-objects/near-earth-ob
 import NearEarthObjectsTable from '../components/near-earth-objects/near-earth-objects.table'
 import nasaLogo from '../public/nasa_logo_pixelated.png'
 import { NasaDarkTheme, NasaLightTheme, getSystemDarkMode } from '../themes/nasa.theme'
+import { getSentrySummary } from 'components/sentry/sentry-impact-objects'
 
 export async function getServerSideProps(context) {
-  const data = await fetchFeedToday()
+  const neoData = await fetchFeedToday()
+  const sentryData = await getSentrySummary()
 
   // Pass data to the page via props
-  return { props: { data } }
+  return { props: { neoData, sentryData } }
 }
 
 export default function Home({ data }) {
@@ -48,9 +50,9 @@ export default function Home({ data }) {
           </Box>
           <DarkModeToggle />
           {matches ? (
-            <NearEarthObjectsTable neodata={data}></NearEarthObjectsTable>
+            <NearEarthObjectsTable neodata={data.neoData}></NearEarthObjectsTable>
           ) : (
-            <NearEarthObjectsList neodata={data}></NearEarthObjectsList>
+            <NearEarthObjectsList neodata={data.neoData}></NearEarthObjectsList>
           )}
         </Stack>
       </ThemeProvider>
