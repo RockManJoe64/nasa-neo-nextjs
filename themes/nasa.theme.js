@@ -39,7 +39,7 @@ export const NasaDarkTheme = {
 }
 
 export const getSystemDarkMode = () => {
-  if (!window.matchMedia) return 'dark'
+  if (typeof window === 'undefined' || !window.matchMedia) return 'dark'
 
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
