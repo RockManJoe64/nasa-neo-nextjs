@@ -8,7 +8,7 @@ import { DateTime } from 'luxon'
 export function toIsoDate(dateString) {
   const options = { zone: 'utc' }
   const dt = DateTime.fromFormat(dateString, 'yyyy-MMM-dd HH:mm', options)
-  const formatted = dt.setLocale('us').toLocaleString(DateTime.DATETIME_FULL)
+  const formatted = dt.toLocal().setLocale('us').toLocaleString(DateTime.DATETIME_FULL)
 
   return formatted
 }

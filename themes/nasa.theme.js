@@ -37,3 +37,9 @@ export const NasaDarkTheme = {
     fontFamily: ['"VT323"', 'monospace'].join(','),
   },
 }
+
+export const getSystemDarkMode = () => {
+  if (!window.matchMedia) return 'dark'
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
