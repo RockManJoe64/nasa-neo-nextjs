@@ -12,7 +12,7 @@ import { fetchFeedToday } from '../components/near-earth-objects/near-earth-obje
 import NearEarthObjectsList from '../components/near-earth-objects/near-earth-objects.list'
 import NearEarthObjectsTable from '../components/near-earth-objects/near-earth-objects.table'
 import nasaLogo from '../public/nasa_logo_pixelated.png'
-import { NasaDarkTheme, NasaLightTheme } from '../themes/nasa.theme'
+import { NasaDarkTheme, NasaLightTheme, getSystemDarkMode } from '../themes/nasa.theme'
 
 export async function getServerSideProps(context) {
   const data = await fetchFeedToday()
@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
 
 export default function Home({ data }) {
   // prettier-ignore
-  const [mode, setMode] = React.useState('light')
+  const [mode, setMode] = React.useState(getSystemDarkMode())
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
