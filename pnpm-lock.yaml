@@ -32,9 +32,6 @@ dependencies:
   numeral:
     specifier: ^2.0.6
     version: 2.0.6
-  openssl:
-    specifier: ^2.0.0
-    version: 2.0.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -2328,11 +2325,6 @@ packages:
     dependencies:
       wrappy: 1.0.2
     dev: true
-
-  /openssl@2.0.0:
-    resolution: {integrity: sha512-0FgKhQ/e+XCtTTgn3qZO2g3y+Y3FC/LGvt77oObmMR4ZkZvsV1CuG/mMZClZgZqVKr0+tkemP+I3Uub4WXkHYw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    dev: false
 
   /optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
