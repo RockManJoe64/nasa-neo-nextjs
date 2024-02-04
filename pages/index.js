@@ -23,7 +23,12 @@ export async function getServerSideProps(context) {
 
 export default function Home({ data }) {
   // prettier-ignore
-  const [mode, setMode] = React.useState(getSystemDarkMode())
+  const [mode, setMode] = React.useState('light')
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return
+    setMode(getSystemDarkMode())
+  }, [])
+
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
