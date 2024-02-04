@@ -29,6 +29,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
-      - run: npm ci
-      - run: npm run build
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+      - name: pnpm-setup
+        uses: pnpm/action-setup@v2
+      - run: pnpm run build
