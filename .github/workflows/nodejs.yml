@@ -38,4 +38,6 @@ jobs:
             ${{ runner.os }}-pnpm-
       - name: pnpm-setup
         uses: pnpm/action-setup@v2
+        with:
+          version: '8.10.0'
       - run: pnpm run build
